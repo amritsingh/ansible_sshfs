@@ -10,7 +10,7 @@ Following variables need to be defined:
 - ssh_username
 - ssh_server: IP of the remote machine
 - ssh_media_directory: Directory where SSHFS will be mounted
-- server_loc: eg. <user>@<ip>:<Directory where disk is mounted on the remote machine>
+- server_loc: eg. <user>@<ip>:<"directory where disk is mounted on the remote machine">
 
 Note: There are no default values for the above mentioned variables.
 
