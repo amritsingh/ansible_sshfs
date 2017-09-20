@@ -2,21 +2,21 @@
 
 - name: Install SSHFS
   apt: pkg=sshfs state=installed update_cache=true
-  sudo: yes
+  become: yes
 
 - name: Unmount (fusermount) Media Directory
   command: fusermount -u {{ remote_media_directory }}
-  sudo: yes
+  become: yes
   ignore_errors: yes
 
 - name: Unmount (umount) Media Directory
   command: umount -l {{ remote_media_directory }}
-  sudo: yes
+  become: yes
   ignore_errors: yes
 
 - name: Remove Media Directory
   command: rmdir {{ remote_media_directory }}
-  sudo: yes
+  become: yes
   ignore_errors: yes
 
 - name: Copy SSHFS Configuration
@@ -25,19 +25,19 @@
         - {src: fuse.conf, dest: "/etc/fuse.conf", owner: "{{ ssh_username }}", group: "{{ ssh_username }}", mode: "0777"}
         - {src: ssh_config, dest: "/etc/ssh/ssh_config", owner: "{{ ssh_username }}", group: "{{ ssh_username }}", mode: "0777"}
         - {src: sshfs_script.j2, dest: "/etc/sshfs_script", owner: "{{ ssh_username }}", group: "{{ ssh_username }}", mode: "0777"}
-  sudo: yes
+  become: yes
 
 - name: Add User to Fuse Group
   command: gpasswd -a $USER fuse
-  sudo: yes
+  become: yes
 
 - name: Create Media Directory
   command: mkdir {{ remote_media_directory }}
-  sudo: yes
+  become: yes
 
 - name: Mount Media Directory
   shell: /etc/sshfs_script
   args:
     executable: /bin/bash
-  sudo: yes
+  become: yes
 
