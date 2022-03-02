@@ -1,7 +1,7 @@
 ---
 
 - name: Install SSHFS
-  apt: pkg=sshfs state=installed update_cache=true
+  apt: pkg=sshfs state=present update_cache=true
   become: yes
 
 - name: Unmount (fusermount) Media Directory
